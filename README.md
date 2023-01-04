@@ -15,5 +15,10 @@ npm install
 Run code:
 
 ```bash
-node \ nodemon index.js
+node index.js
+```
+or 
+
+```bash
+nodemon index.js
 ```
