@@ -19,7 +19,17 @@ exports.validationRegister = [
     .withMessage('Your number is not valid'),
   check('email').notEmpty().withMessage('Email cannot empty')
     .isEmail()
-    .withMessage('Your email is not valid'),
+    .withMessage('Your email is not valid')
+    .custom(async (value) => {
+      try {
+        const username = await User.findOne({ where: { email: value } });
+        if (username) {
+          return Promise.reject('username is also exist');
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    }),
   check('password').notEmpty().withMessage('Password cannot empty')
     .isLength({ min: 8 })
     .withMessage('password must be at last 8 characters')
